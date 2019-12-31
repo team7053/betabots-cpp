@@ -51,7 +51,6 @@ void Robot::VisionThread()
     {
       inputStream.GrabFrame(sourceMat);
       grip.Process(sourceMat);
-
       CvRect r = cvBoundingRect(grip.GetFilterContoursOutput());
       robot.centerX = r.x + (r.width / 2);
       cv::Mat *outputMat = grip.GetMaskOutput();
