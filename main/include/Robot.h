@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <any>
+#include <iostream>
 #include <RobotMap.h>
 #include <OI.h>
 #include <Drivetrain.h>
@@ -38,6 +38,7 @@ public:
   void TeleopInit() override;
   void TeleopPeriodic() override;
   void TestPeriodic() override;
+  double centerX;
 
 private:
   RobotMap rMap;
@@ -55,7 +56,6 @@ private:
   double yawAngle;
   double ultraRange;
   double pidError;
-  double centerX;
 
   std::string autoSelected;
   std::string kAutoNameDefault = "Default";

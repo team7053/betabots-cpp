@@ -12,7 +12,6 @@
 /* Last Update: 27/12/2019 (dd/mm/yyyy)                                          */
 /*-------------------------------------------------------------------------------*/
 
-#include <iostream>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "Robot.h"
 
@@ -24,33 +23,44 @@ Robot::Robot() : robotDrive(rMap.leftMotorChannel, rMap.rightMotorChannel),
                  pid()
 {
 }
+
+//This creates a seperate thread for vision processing to runn along side the main thread
 void Robot::VisionThread()
 {
+  Robot robot;
+  // Creates the UsbCamera object and starts a automatic Mjpeg feed to the Dashboard
   cs::UsbCamera camera = CameraServer::GetInstance()->StartAutomaticCapture("Camera 1", RobotMap::cameraPort1);
   camera.SetResolution(RobotMap::cameraWidth, RobotMap::cameraHeight);
+  //Creates a sourceMat for the grip process
   cs::CvSink inputStream = CameraServer::GetInstance()->GetVideo("Camera 1");
+  //Sets up the output processed stream
   cs::CvSource outputStreamStd = CameraServer::GetInstance()->PutVideo("Processed Feed", 640, 480);
-  cv::Mat source;
-
-  if (inputStream.GrabFrame(source) == 0)
+  //Creates a Matrix object to which the inputStream will be converted to
+  cv::Mat sourceMat;
+  bool isVisionProcessEnabled;
+  if (inputStream.GrabFrame(sourceMat) == 0)
   {
-    frc::DriverStation::ReportError("Input Stream Error");
+    frc::DriverStation::ReportError("Vision Processing Error");
+    isVisionProcessEnabled = false;
   }
   else
   {
+    isVisionProcessEnabled = true;
     grip::GripPipeline grip = grip::GripPipeline();
     while (true)
     {
-      inputStream.GrabFrame(source);
-      grip.Process(source);
+      inputStream.GrabFrame(sourceMat);
+      grip.Process(sourceMat);
+
       CvRect r = cvBoundingRect(grip.GetFilterContoursOutput());
-      centerX = r.x + (r.width / 2);
-      cvMat *outputMat;
-      outputMat = grip.GetMaskOutput();
-      outputStreamStd.PutFrame(outputMat);
+      robot.centerX = r.x + (r.width / 2);
+      cv::Mat *outputMat = grip.GetMaskOutput();
+      outputStreamStd.PutFrame(*outputMat);
     }
   }
 }
+
+// this function is run once at startup
 void Robot::RobotInit()
 {
   // Creates a runtime timer and starts it

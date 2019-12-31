@@ -17,8 +17,7 @@ void Autonomous::AutonomousDefault()
 }
 void Autonomous::AutonomousAlt1()
 {
-    centerX = Robot::centerX;
-    turn = centerX - (RobotMap::cameraWidth / 2);
+    turn = robot.centerX - (RobotMap::cameraWidth / 2);
     robotDrive.setDrive(0, turn);
     dStation.ReportError("Alt 1 Autonomous Activated");
 }

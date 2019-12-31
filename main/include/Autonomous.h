@@ -29,9 +29,9 @@ private:
   Arm arm;
   LED led;
   PidSystem pid;
+  Robot robot;
   frc::DriverStation dStation;
 
-  double centerX;
   double turn;
 };
 
