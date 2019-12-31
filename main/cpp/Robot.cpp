@@ -27,7 +27,6 @@ Robot::Robot() : robotDrive(rMap.leftMotorChannel, rMap.rightMotorChannel),
 //This creates a seperate thread for vision processing to runn along side the main thread
 void Robot::VisionThread()
 {
-  Robot robot;
   // Creates the UsbCamera object and starts a automatic Mjpeg feed to the Dashboard
   cs::UsbCamera camera = CameraServer::GetInstance()->StartAutomaticCapture("Camera 1", RobotMap::cameraPort1);
   camera.SetResolution(RobotMap::cameraWidth, RobotMap::cameraHeight);

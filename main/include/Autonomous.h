@@ -32,7 +32,7 @@ private:
   Robot robot;
   frc::DriverStation dStation;
 
-  double turn;
+  double turnFactor;
 };
 
 #endif
