@@ -1,6 +1,6 @@
-#include <Autonomous.h>
+#include <AutoCode.h>
 
-void Autonomous::AutonomousDefault()
+void AutoCode::AutoPIDForwards()
 {
     if (ultra.getUltrasonicRange() >= 30.0)
     {
@@ -15,15 +15,15 @@ void Autonomous::AutonomousDefault()
         dStation.ReportError("Stop");
     }
 }
-void Autonomous::AutonomousAlt1()
+void AutoCode::AutoVision()
 {
     //
     turnFactor = robot.centerX - (RobotMap::cameraWidth / 2);
     robotDrive.setDrive(0, turnFactor * 0.005);
-    dStation.ReportError("Alt 1 Autonomous Activated");
+    dStation.ReportError("Alt 1 AutoCode Activated");
 }
-void Autonomous::AutonomousAlt2()
+void AutoCode::AutoPIDStill()
 {
     robotDrive.setDrive(0, pid.getPIDOutput());
-    dStation.ReportError("Alt 2 Autonomous Activated");
+    dStation.ReportError("Alt 2 AutoCode Activated");
 }

@@ -48,6 +48,9 @@ void Robot::VisionThread()
     grip::GripPipeline grip = grip::GripPipeline();
     while (true)
     {
+      /* The following grabs a frame from the USB Camera, converts it to a matrix, *
+      *  processes it with the Grip pipeline, finds the center of the countour of  *
+      *  the object and then outputs that stream as a Mjpeg feed                  */
       inputStream.GrabFrame(sourceMat);
       grip.Process(sourceMat);
       CvRect r = cvBoundingRect(grip.GetFilterContoursOutput());
@@ -69,7 +72,7 @@ void Robot::RobotInit()
   frc::SmartDashboard::PutBoolean("Gyro Connection", false);
   // Puts the kAutoNameArray into the Auto Selector Combo box
   frc::SmartDashboard::PutStringArray("Auto List", kAutoNameArray);
-  frc::SmartDashboard::PutStringArray("Alliance List", kAllianceArray);
+  frc::SmartDashboard::PutStringArray("Alliance List", kAllianceArro ay);
   // Sets the value of allianceSelected to the selection of the Alliance Selector combo box
   allianceSelected = SmartDashboard::GetString("Alliance Selector", kAllianceRed);
   // Sets the value of autoSelected to the selection of the dropdown menu on the Dashboard
@@ -81,7 +84,6 @@ void Robot::RobotInit()
 //This function is called every robot packet, no matter the mode.
 void Robot::RobotPeriodic()
 {
-
   if (allianceSelected == kAllianceBlue)
   {
     led.setLEDRedHeartbeat();
@@ -121,28 +123,15 @@ void Robot::AutonomousPeriodic()
   frc::SmartDashboard::PutNumber("Error", pid.getError(rMap.pidSetpoint, gyro.getYawAngle()));
   if (autoSelected == kAutoNameDefault)
   {
-
-    if (ultraRange >= 30.0)
-    {
-      robotDrive.setDrive(0.5, pid.getPIDOutput());
-      // This is done for debugging purposes because VS is a bitch and won't do std::cout because fuck the user
-      frc::DriverStation::ReportError("Forwards");
-    }
-    else
-    {
-      robotDrive.setDrive(0, pid.getPIDOutput());
-      // This is done for debugging purposes because VS is a bitch and won't do std::cout because fuck the user
-      frc::DriverStation::ReportError("Stop");
-    }
+    autocode.AutoPIDForwards();
   }
   else if (autoSelected == kAutoNameAlt1)
   {
-    robotDrive.setDrive(0, pid.getPIDOutput());
-    // This is done for debugging purposes because VS is a bitch and won't do std::cout because fuck the user
-    frc::DriverStation::ReportError("PID ENABLED. NOW KICK THE ROBOT");
+    autocode.AutoVision();
   }
   else
   {
+    autocode.AutoPIDStill();
   }
 }
 

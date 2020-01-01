@@ -1,5 +1,5 @@
-#ifndef AUTONOMOUS_H
-#define AUTONOMOUS_H
+#ifndef AutoCode_H
+#define AutoCode_H
 #include <Arm.h>
 #include <Robot.h>
 #include <Gyro.h>
@@ -10,15 +10,15 @@
 #include <Drivetrain.h>
 #include <frc/DriverStation.h>
 
-class Autonomous
+class AutoCode
 {
 
 public:
-  Autonomous();
-  ~Autonomous();
-  void AutonomousDefault();
-  void AutonomousAlt1();
-  void AutonomousAlt2();
+  AutoCode();
+  ~AutoCode();
+  void AutoPIDForwards();
+  void AutoVision();
+  void AutoPIDStill();
 
 private:
   RobotMap rMap;

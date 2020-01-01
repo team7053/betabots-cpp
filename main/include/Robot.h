@@ -8,6 +8,7 @@
 #pragma once
 
 #include <iostream>
+#include <AutoCode.h>
 #include <RobotMap.h>
 #include <OI.h>
 #include <Drivetrain.h>
@@ -41,6 +42,7 @@ public:
   double centerX;
 
 private:
+  AutoCode autocode;
   RobotMap rMap;
   OI oi;
   Drivetrain robotDrive;
@@ -58,9 +60,9 @@ private:
   double pidError;
 
   std::string autoSelected;
-  std::string kAutoNameDefault = "Default";
-  std::string kAutoNameAlt1 = "Alternative 1";
-  std::string kAutoNameAlt2 = "Alternative 2";
+  std::string kAutoNameDefault = "PID Forwards";
+  std::string kAutoNameAlt1 = "Vision Tracking";
+  std::string kAutoNameAlt2 = "Kick the Robot Mode";
   std::string kAutoNameArray[3] = {kAutoNameDefault, kAutoNameAlt1, kAutoNameAlt2};
   std::string allianceSelected;
   std::string kAllianceRed = "Red";
