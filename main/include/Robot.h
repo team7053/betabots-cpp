@@ -27,7 +27,7 @@
 
 using namespace frc;
 
-class Robot : public TimedRobot, public AutoCode
+class Robot : public TimedRobot
 {
 public:
   Robot();
@@ -39,7 +39,6 @@ public:
   void TeleopInit() override;
   void TeleopPeriodic() override;
   void TestPeriodic() override;
-  double centerX;
 
 private:
   AutoCode autocode;
@@ -58,6 +57,7 @@ private:
   double yawAngle;
   double ultraRange;
   double pidError;
+  double centerX;
   friend class AutoCode;
 
   std::string autoSelected;
