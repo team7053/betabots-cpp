@@ -27,7 +27,7 @@
 
 using namespace frc;
 
-class Robot : public TimedRobot
+class Robot : public TimedRobot, public AutoCode
 {
 public:
   Robot();
@@ -58,6 +58,7 @@ private:
   double yawAngle;
   double ultraRange;
   double pidError;
+  friend class AutoCode;
 
   std::string autoSelected;
   std::string kAutoNameDefault = "PID Forwards";

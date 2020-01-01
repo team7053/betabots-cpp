@@ -84,14 +84,30 @@ void Robot::RobotInit()
 //This function is called every robot packet, no matter the mode.
 void Robot::RobotPeriodic()
 {
-  if (allianceSelected == kAllianceBlue)
+  // Sets the LED to a heartbeat pattern in its team's colour if its moving or a solid pattern if not
+  if (robotDrive.isMoving() = true)
   {
-    led.setLEDRedHeartbeat();
+    if (allianceSelected == kAllianceRed)
+    {
+      led.setLEDRedHeartbeat();
+    }
+    else
+    {
+      led.setLEDBlueHeartbeat();
+    }
   }
   else
   {
-    led.setLEDBlueHeartbeat();
+    if (allianceSelected == kAllianceRed)
+    {
+      led.setLEDRedSolid();
+    }
+    else
+    {
+      led.setLEDBlueSolid();
+    }
   }
+  // Gets and displays detected Ultrasonic range onto the dashboard
   ultraRange = ultra.getUltrasonicRange();
   frc::SmartDashboard::PutNumber("Ultra", ultraRange);
   // Sets yawAngle to the yaw value of the NavX

@@ -7,13 +7,14 @@
 
 class Drivetrain
 {
-  public:
-    Drivetrain(int ml, int mr);
-    void setDrive(double fwd, double turn);
+public:
+  Drivetrain(int ml, int mr);
+  void setDrive(double fwd, double turn);
+  bool isMoving();
 
-  private:
-    frc::Spark lm, rm;
-    frc::DifferentialDrive drive;
+private:
+  frc::Spark lm, rm;
+  frc::DifferentialDrive drive;
 };
 
 #endif
