@@ -17,7 +17,7 @@ void AutoCode::AutoPIDForwards()
 }
 void AutoCode::AutoVision()
 {
-    //
+
     turnFactor = robot.centerX - (RobotMap::cameraWidth / 2);
     robotDrive.setDrive(0, turnFactor * 0.005);
     dStation.ReportError("Alt 1 AutoCode Activated");

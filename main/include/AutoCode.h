@@ -21,6 +21,7 @@ public:
   void AutoPIDStill();
 
 private:
+  Robot robot;
   RobotMap rMap;
   OI oi;
   Drivetrain robotDrive;
