@@ -54,7 +54,7 @@ void Robot::VisionThread()
       inputStream.GrabFrame(sourceMat);
       grip.Process(sourceMat);
       CvRect r = cvBoundingRect(grip.GetFilterContoursOutput());
-      robot.centerX = r.x + (r.width / 2);
+      double centerX = r.x + (r.width / 2);
       cv::Mat *outputMat = grip.GetMaskOutput();
       outputStreamStd.PutFrame(*outputMat);
     }
@@ -72,7 +72,7 @@ void Robot::RobotInit()
   frc::SmartDashboard::PutBoolean("Gyro Connection", false);
   // Puts the kAutoNameArray into the Auto Selector Combo box
   frc::SmartDashboard::PutStringArray("Auto List", kAutoNameArray);
-  frc::SmartDashboard::PutStringArray("Alliance List", kAllianceArro ay);
+  frc::SmartDashboard::PutStringArray("Alliance List", kAllianceArray);
   // Sets the value of allianceSelected to the selection of the Alliance Selector combo box
   allianceSelected = SmartDashboard::GetString("Alliance Selector", kAllianceRed);
   // Sets the value of autoSelected to the selection of the dropdown menu on the Dashboard
@@ -85,7 +85,7 @@ void Robot::RobotInit()
 void Robot::RobotPeriodic()
 {
   // Sets the LED to a heartbeat pattern in its team's colour if its moving or a solid pattern if not
-  if (robotDrive.isMoving() = true)
+  if (robotDrive.isMoving() == true)
   {
     if (allianceSelected == kAllianceRed)
     {
@@ -107,6 +107,7 @@ void Robot::RobotPeriodic()
       led.setLEDBlueSolid();
     }
   }
+  
   // Gets and displays detected Ultrasonic range onto the dashboard
   ultraRange = ultra.getUltrasonicRange();
   frc::SmartDashboard::PutNumber("Ultra", ultraRange);
@@ -127,7 +128,6 @@ void Robot::RobotPeriodic()
 
 void Robot::AutonomousInit()
 {
-
   // Resets and starts the runtime timer
   autoTimer->Reset();
   autoTimer->Start();

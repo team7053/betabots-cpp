@@ -1,5 +1,6 @@
-#ifndef AutoCode_H
-#define AutoCode_H
+#ifndef AUTONOMOUS_H
+#define AUTONOMOUS_H
+
 #include <Arm.h>
 #include <Robot.h>
 #include <Gyro.h>
@@ -10,18 +11,16 @@
 #include <Drivetrain.h>
 #include <frc/DriverStation.h>
 
-class AutoCode
+class Autonomous
 {
-
 public:
-  AutoCode();
-  ~AutoCode();
+  Autonomous();
+  ~Autonomous();
   void AutoPIDForwards();
   void AutoVision();
   void AutoPIDStill();
 
 private:
-  Robot robot;
   RobotMap rMap;
   OI oi;
   Drivetrain robotDrive;

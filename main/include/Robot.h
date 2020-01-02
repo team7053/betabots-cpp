@@ -8,7 +8,7 @@
 #pragma once
 
 #include <iostream>
-#include <AutoCode.h>
+#include <Autonomous.h>
 #include <RobotMap.h>
 #include <OI.h>
 #include <Drivetrain.h>
@@ -41,7 +41,7 @@ public:
   void TestPeriodic() override;
 
 private:
-  AutoCode autocode;
+  Autonomous autocode;
   RobotMap rMap;
   OI oi;
   Drivetrain robotDrive;
@@ -58,7 +58,7 @@ private:
   double ultraRange;
   double pidError;
   double centerX;
-  friend class AutoCode;
+  friend class Autonomous;
 
   std::string autoSelected;
   std::string kAutoNameDefault = "PID Forwards";
