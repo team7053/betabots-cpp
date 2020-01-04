@@ -38,3 +38,7 @@ bool OI::getArmMotorRight()
 {
     return joystick2.GetRawButton(RobotMap::armMotorRightButton);
 }
+bool OI::getPidTeleopToggle()
+{
+    return joystick1.GetRawButton(RobotMap::togglePidTelopButton);
+}

@@ -33,6 +33,7 @@ public:
   const static int armMotorRightButton = 8;
   constexpr static double armMotorRightValue = (-0.25);
 
+  const static int togglePidTelopButton = 10;
   const static int resetYawButton = 11;
 
   constexpr static float LEDRedHeartbeat = 0.05;
@@ -53,6 +54,5 @@ public:
   constexpr static float pidMinOutput = -0.4;
   constexpr static float pidMaxOutput = 0.4;
   constexpr static float pidAbsTolerance = 1.0;
-  constexpr static float pidSetpoint = 0.0;
 };
 #endif

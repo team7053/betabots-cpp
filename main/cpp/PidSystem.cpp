@@ -7,7 +7,7 @@ PidSystem::PidSystem()
     pidSystem->SetOutputRange(RobotMap::pidMinOutput, RobotMap::pidMaxOutput);
     pidSystem->SetAbsoluteTolerance(RobotMap::pidAbsTolerance);
     pidSystem->SetContinuous(true);
-    pidSystem->SetSetpoint(RobotMap::pidSetpoint);
+    pidSystem->SetSetpoint(0.0f);
 }
 
 void PidSystem::PIDWrite(double output)
@@ -30,4 +30,12 @@ void PidSystem::disablePID()
 double PidSystem::getPIDOutput()
 {
     return rotateRate;
+}
+void PidSystem::setSetpoint(double setpoint)
+{
+    pidSystem->SetSetpoint(setpoint);
+}
+double PidSystem::getSetpoint()
+{
+    return pidSystem->GetSetpoint();
 }

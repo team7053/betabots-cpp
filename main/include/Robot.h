@@ -54,6 +54,7 @@ private:
   Timer *autoTimer;
   frc::DriverStation *DS;
 
+  bool isPidTeleopEnabled;
   double yawAngle;
   double ultraRange;
   double pidError;

@@ -107,7 +107,8 @@ void Robot::RobotPeriodic()
       led.setLEDBlueSolid();
     }
   }
-  
+  // Calculates the difference between the heading and the PID setpoint to get the error and
+  frc::SmartDashboard::PutNumber("Error", pid.getError(pid.getSetpoint(), gyro.getYawAngle()));
   // Gets and displays detected Ultrasonic range onto the dashboard
   ultraRange = ultra.getUltrasonicRange();
   frc::SmartDashboard::PutNumber("Ultra", ultraRange);
@@ -136,7 +137,7 @@ void Robot::AutonomousInit()
 
 void Robot::AutonomousPeriodic()
 {
-  frc::SmartDashboard::PutNumber("Error", pid.getError(rMap.pidSetpoint, gyro.getYawAngle()));
+
   if (autoSelected == kAutoNameDefault)
   {
     autocode.AutoPIDForwards();
@@ -154,13 +155,32 @@ void Robot::AutonomousPeriodic()
 // Runs once before TeleopPeriodic
 void Robot::TeleopInit()
 {
-  pid.disablePID();
 }
 
 // This function is called every robot packet if the mode selected is Teleop and after TeleopInit has been run once
 void Robot::TeleopPeriodic()
 {
-  robotDrive.setDrive(oi.getLimitedY(), oi.getLimitedX());
+
+  if (oi.getPidTeleopToggle())
+  {
+    if (isPidTeleopEnabled == true)
+    {
+      isPidTeleopEnabled = false;
+    }
+    else
+    {
+      isPidTeleopEnabled = true;
+    }
+  }
+  if (isPidTeleopEnabled == true)
+  {
+    robotDrive.setDrive(pid.getPIDOutput(), oi.getLimitedX());
+  }
+  else
+  {
+    robotDrive.setDrive(oi.getLimitedY(), oi.getLimitedX());
+  }
+
   //button 1(small) and 2(big) to control dump servo
   if (oi.getSmallServoTurn())
   {

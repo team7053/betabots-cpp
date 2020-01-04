@@ -14,8 +14,10 @@ public:
   void PIDWrite(double output) override;
   double getPIDOutput();
   double getError(double sp, double ang);
+  double getSetpoint();
   void enablePID();
   void disablePID();
+  void setSetpoint(double setpoint);
 
 private:
   Gyro gyro;
